@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Fragment } from 'react/cjs/react.development'
 
 import classes from './CheckList.module.css'
@@ -17,25 +16,24 @@ const helperArr = [
   {id: 11, value: 'sports'},
   {id: 12, value: 'medical'},
   {id: 13, value: 'banks'},
-  {id: 14, value: 'classrooms'},
-  {id: 15, value: 'transport'},
-  {id: 16, value: 'transport'},
-  {id: 17, value: 'transport'}
+  {id: 14, value: 'classrooms'}
 ]
 
 const CheckList = (props) => {
-  const [checkMap, setCheckMap] = useState(new Map());
+  // const [checkMap, setCheckMap] = useState(new Map());
 
   const checkValueChangeHandler = (e) => {
     let isChecked = e.target.checked;
     let item = e.target.value;
 
-    setCheckMap(prevState => prevState.set(item, isChecked))
-    // the first argument is the checkMap which tells the id => true/false,
-    // the second argument gives the helperArr, so that we can lift the state up in the original Home Component and assemble a facilityArr over there in Home.js
-    // all of this is really so DAMN GOOD!!
-    const newCheckMap = [...checkMap].filter((k,v) => isChecked)
-    props.onFacilityChange(newCheckMap, helperArr)
+    // the below code is totally unrealted for a complete different feature, which took me 3 hours to build, it is sad, because the code is really good and interesting , but not needed
+    
+    // setCheckMap(prevState => prevState.set(item, isChecked))
+    // // the first argument is the checkMap which tells the id => true/false,
+    // // the second argument gives the helperArr, so that we can lift the state up in the original Home Component and assemble a facilityArr over there in Home.js
+    // // all of this is really so DAMN GOOD!!
+    // const newCheckMap = [...checkMap].filter((k,v) => isChecked)
+    if(isChecked) props.onFacilityChange(helperArr[item-1])
   }
 
   return(

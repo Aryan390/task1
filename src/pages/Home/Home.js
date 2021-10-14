@@ -45,6 +45,7 @@ const Home = () => {
   const history = useHistory();
   const authCtx = useContext(AuthContext)
 
+  // handles searching of colleges from the original dataset
   const collegesChangeHandler = () => {
     let newCollegeArr = [...newCollegeDetails]
 
@@ -84,34 +85,37 @@ const Home = () => {
     history.push('/login')
   }
 
-  const facilitiesChangeHandler = (realTimeArr, helperArr) => {
+  const facilitiesChangeHandler = (comingFacility) => {
     // below code is to obtain the facilityArr, OMG so much for so less , LOL
-    let facilityArr = [...helperArr]
-    let newRealTimeArr = [...realTimeArr]
-    newRealTimeArr = newRealTimeArr.map(item => parseInt(item[0]))
+    // let facilityArr = [...helperArr]
+    // let newRealTimeArr = [...realTimeArr]
+    // newRealTimeArr = newRealTimeArr.map(item => parseInt(item[0]))
 
-    facilityArr = facilityArr.filter(item => newRealTimeArr.includes(item.id))
-    facilityArr = facilityArr.map(item => item.value);
-
-    let newCollegeArr = [...newCollegeDetails]
+    // facilityArr = facilityArr.filter(item => newRealTimeArr.includes(item.id))
+    // facilityArr = facilityArr.map(item => item.value);
+    let facility = comingFacility.value
+    // here take the original state of app for colleges , rather than the original dataset from .json file, because it filters out from city
+    let newCollegeArr = [...colleges]
     let collegeArr = [];
+
+    console.log(newCollegeArr);
 
     // getting the arrays in collegeArr
     for(let i =0; i<newCollegeArr.length; i++){
       let fac = newCollegeArr[i].facilities.split(',')
       let counter = 0;
       for(let j = 0; j < fac.length; j++){
-        if(facilityArr.includes(fac[j])){
+        if(facility === fac[j]){
           let newCollege = collegeArr.find(item => item.id === newCollegeArr[i].id)
           if(newCollege) newCollege.counter++
           else collegeArr.push({...newCollegeArr[i], counter: ++counter})
         }
       }
     }
-
-
+    console.log(facility);
     // sorting the arrays in descending order using counter property in collegeArr
     collegeArr.sort((a,b) => b.counter - a.counter)
+    console.log(collegeArr)
 
     setColleges(collegeArr)
   }
