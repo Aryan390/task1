@@ -1,0 +1,14 @@
+.dropdown{
+  width: 45%;
+  height: 3rem;
+  cursor: pointer;
+  border: 1px solid rgb(201, 201, 201);
+  box-shadow: 2px 2px 20px 5px rgba(0, 0, 0, 0.075);
+  font-size: 1.1rem;
+  padding: .3rem .8rem;
+  border-radius: 10px;
+}
+
+.dropdown:focus{
+  outline : none;
+}

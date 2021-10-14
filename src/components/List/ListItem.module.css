@@ -1,0 +1,25 @@
+.list-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(171, 238, 255);
+  padding: 1rem;
+  margin-bottom: .2rem;
+  border-radius: 5px;
+  box-shadow: 0 1px 10px 2px rgba(0, 0, 0, 0.171);
+  color: rgb(7, 33, 105);
+}
+
+.names, .years{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 40%;
+  text-align: center;
+}
+
+.years{width: 30%;}
+
+.lastItem{
+  width: 12%;
+}
