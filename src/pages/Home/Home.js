@@ -122,6 +122,10 @@ const Home = () => {
       collegeArr.sort((a,b) => b.counter - a.counter)
 
       // a kind of caching mechanism to keep track of all the previous college arrays
+      // it works like: ( p.s i am only putting this so i dont forget it next time lol)
+      // if auditorium is selected  => ['auditorium']
+      // hostel is selected => ['auditorium + hostel', 'hostel']
+      // and so on... , the main collegeList filtered with the mentioned facility
       previousCollegeArr.push([[...collegeArr], facility])
       setPreviousColleges(previousCollegeArr)
       setColleges(collegeArr)
