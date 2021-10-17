@@ -41,7 +41,7 @@ const CheckList = (props) => {
     <Fragment>
       <h2>Select Based on Facilites!</h2>
       <ul className={classes.checklist}>
-        {helperArr.map((item, i) => (
+        {helperArr.map((item) => (
           <li
             key = {item.id}
             className={classes.listitem}

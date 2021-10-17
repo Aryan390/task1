@@ -38,7 +38,7 @@ cities = cities.map(item => ({id: counter++, placeName: item.city, state: item.s
 
 const Home = () => {
   const [colleges, setColleges] = useState(newCollegeDetails);
-  const [previousColleges, setPreviousColleges] = useState(newCollegeDetails);
+  const [previousColleges, setPreviousColleges] = useState([]);
   const [cityArray, setCityArray] = useState(cities);
   // const [facilities, setFacilities] = useState([]);
   const inputRef = useRef(null)
@@ -98,6 +98,7 @@ const Home = () => {
     // here take the original state of app for colleges , rather than the original dataset from .json file, because it filters out from city
     let newCollegeArr = [...colleges]
     let collegeArr = [];
+    let previousCollegeArr = [...previousColleges]
 
     console.log(newCollegeArr);
     console.log(facility, check);
@@ -120,13 +121,27 @@ const Home = () => {
       // sorting the arrays in descending order using counter property in collegeArr
       collegeArr.sort((a,b) => b.counter - a.counter)
 
-      setPreviousColleges(newCollegeArr)
+      // a kind of caching mechanism to keep track of all the previous college arrays
+      previousCollegeArr.push([[...newCollegeArr], facility])
+      setPreviousColleges(previousCollegeArr)
       setColleges(collegeArr)
     }else {
       let newPreviousCollegeArr = [...previousColleges]
+      let collegeVar, collegeIndex;
 
-      setColleges(newPreviousCollegeArr)
+      newPreviousCollegeArr.forEach((item, index) => {
+        if(item[1] === facility) {
+          collegeVar = item;
+          collegeIndex = index
+        }
+      })
+
+      newPreviousCollegeArr.splice(collegeIndex,1);
+      setPreviousColleges(newPreviousCollegeArr)
+      setColleges(collegeVar[0])
     }
+
+    console.log(previousColleges);
   }
 
   return (
