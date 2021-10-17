@@ -122,7 +122,7 @@ const Home = () => {
       collegeArr.sort((a,b) => b.counter - a.counter)
 
       // a kind of caching mechanism to keep track of all the previous college arrays
-      previousCollegeArr.push([[...newCollegeArr], facility])
+      previousCollegeArr.push([[...collegeArr], facility])
       setPreviousColleges(previousCollegeArr)
       setColleges(collegeArr)
     }else {
@@ -137,11 +137,10 @@ const Home = () => {
       })
 
       newPreviousCollegeArr.splice(collegeIndex,1);
+      console.log(newPreviousCollegeArr)
       setPreviousColleges(newPreviousCollegeArr)
       setColleges(collegeVar[0])
     }
-
-    console.log(previousColleges);
   }
 
   return (
