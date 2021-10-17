@@ -33,7 +33,8 @@ const CheckList = (props) => {
     // // the second argument gives the helperArr, so that we can lift the state up in the original Home Component and assemble a facilityArr over there in Home.js
     // // all of this is really so DAMN GOOD!!
     // const newCheckMap = [...checkMap].filter((k,v) => isChecked)
-    if(isChecked) props.onFacilityChange(helperArr[item-1])
+    if(isChecked) props.onFacilityChange(helperArr[item-1], true)
+    else props.onFacilityChange(helperArr[item-1], false)
   }
 
   return(

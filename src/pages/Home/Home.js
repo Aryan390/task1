@@ -38,6 +38,7 @@ cities = cities.map(item => ({id: counter++, placeName: item.city, state: item.s
 
 const Home = () => {
   const [colleges, setColleges] = useState(newCollegeDetails);
+  const [previousColleges, setPreviousColleges] = useState(newCollegeDetails);
   const [cityArray, setCityArray] = useState(cities);
   // const [facilities, setFacilities] = useState([]);
   const inputRef = useRef(null)
@@ -85,7 +86,7 @@ const Home = () => {
     history.push('/login')
   }
 
-  const facilitiesChangeHandler = (comingFacility) => {
+  const facilitiesChangeHandler = (comingFacility, check) => {
     // below code is to obtain the facilityArr, OMG so much for so less , LOL
     // let facilityArr = [...helperArr]
     // let newRealTimeArr = [...realTimeArr]
@@ -99,25 +100,33 @@ const Home = () => {
     let collegeArr = [];
 
     console.log(newCollegeArr);
+    console.log(facility, check);
 
-    // getting the arrays in collegeArr
-    for(let i =0; i<newCollegeArr.length; i++){
-      let fac = newCollegeArr[i].facilities.split(',')
-      let counter = 0;
-      for(let j = 0; j < fac.length; j++){
-        if(facility === fac[j]){
-          let newCollege = collegeArr.find(item => item.id === newCollegeArr[i].id)
-          if(newCollege) newCollege.counter++
-          else collegeArr.push({...newCollegeArr[i], counter: ++counter})
+
+    // so, if check is true, we are filtering out colleges, and adding the previous state to previouColleges state, so that when check = false, we can retain the previous array 
+    if(check){
+      // getting the arrays in collegeArr
+      for(let i =0; i<newCollegeArr.length; i++){
+        let fac = newCollegeArr[i].facilities.split(',')
+        let counter = 0;
+        for(let j = 0; j < fac.length; j++){
+          if(facility === fac[j]){
+            let newCollege = collegeArr.find(item => item.id === newCollegeArr[i].id)
+            if(newCollege) newCollege.counter++
+            else collegeArr.push({...newCollegeArr[i], counter: ++counter})
+          }
         }
       }
-    }
-    console.log(facility);
-    // sorting the arrays in descending order using counter property in collegeArr
-    collegeArr.sort((a,b) => b.counter - a.counter)
-    console.log(collegeArr)
+      // sorting the arrays in descending order using counter property in collegeArr
+      collegeArr.sort((a,b) => b.counter - a.counter)
 
-    setColleges(collegeArr)
+      setPreviousColleges(newCollegeArr)
+      setColleges(collegeArr)
+    }else {
+      let newPreviousCollegeArr = [...previousColleges]
+
+      setColleges(newPreviousCollegeArr)
+    }
   }
 
   return (
